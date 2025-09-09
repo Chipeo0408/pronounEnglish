@@ -1,0 +1,4 @@
+streamlit
+eng_to_ipa
+gTTS
+pandas
