@@ -82,7 +82,7 @@ with tab_single:
             if st.button("Câu sau →",use_container_width=True,type="primary"):
                 if st.session_state.count<len(lstData)-1:
                     st.session_state.count+=1
-                else
+                else:
                     st.session_state.count=0
         text = st.text_area(f"Câu {st.session_state.count+1}", height=50, value=lstData[st.session_state.count] if lstData else "", placeholder="Nhập câu tiếng Anh ở đây...")
         with st.expander("Tùy chọn nâng cao", expanded=False):
