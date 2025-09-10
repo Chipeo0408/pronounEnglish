@@ -62,33 +62,51 @@ def sanitize_filename(s: str, maxlen=80) -> str:
 # Single mode
 # -----------------------------
 with tab_single:
-    text = st.text_area("Nhập câu tiếng Anh:", height=120, placeholder="Overthinking can hurt you.")
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col1:
-        lang = st.text_input("Ngôn ngữ gTTS", value="en", help="Ví dụ: en, en-uk, en-au")
-    with col2:
-        slow = st.checkbox("Đọc chậm (gTTS)")
-    with col3:
-        base_name = st.text_input("Tên file MP3", value="speech")
+    # Đặt giá trị mặc định trước
+    if "count" not in st.session_state:
+        st.session_state.count = 0
+    sourece =  st.text_area("Nguồn:", height=210, placeholder="Overthinking can hurt you.")
+    lstData = []
+    if sourece:
+        lstData = sourece.split(".")
+        
+        cola,colb = st.columns(2)
+        with cola:
+            if st.button("← Câu trước",use_container_width=True,type="primary"):
+                if st.session_state.count>1:
+                    st.session_state.count-=1
+        with colb:
+            if st.button("Câu sau →",use_container_width=True,type="primary"):
+                if st.session_state.count<len(lstData):
+                    st.session_state.count+=1
 
-    if st.button("✨ Tạo IPA & Audio", type="primary", use_container_width=True):
-        if not text.strip():
-            st.warning("Vui lòng nhập nội dung.")
-        else:
-            with st.spinner("Đang xử lý..."):
-                ipa_text = get_ipa(text)
-                st.markdown("**IPA:**")
-                st.code(ipa_text or "(không có)",wrap_lines =True)
+        text = st.text_area(f"Câu {st.session_state.count+1}", height=50, value=lstData[st.session_state.count] if lstData else "", placeholder="Nhập câu tiếng Anh ở đây...")
+        with st.expander("Tùy chọn nâng cao", expanded=False):
+            col1, col2, col3 = st.columns([1, 1, 1])
+            with col1:
+                lang = st.text_input("Ngôn ngữ gTTS", value="en", help="Ví dụ: en, en-uk, en-au")
+            with col2:
+                slow = st.checkbox("Đọc chậm (gTTS)")
+            with col3:
+                base_name = st.text_input("Tên file MP3", value="speech")
 
-                try:
-                    audio_bytes = tts_gtts_bytes(text, lang=lang, slow=slow)
-                    st.success("Đã tạo audio (gTTS).")
-                    st.audio(audio_bytes, format="audio/mp3")
-                    fname = f"{sanitize_filename(base_name)}.mp3"
-                    st.download_button("⬇️ Tải MP3", data=audio_bytes, file_name=fname, mime="audio/mpeg")
-                except Exception as e:
-                    st.error(f"Lỗi gTTS: {e}")
+        if text:
+            if not text.strip():
+                st.warning("Vui lòng nhập nội dung.")
+            else:
+                with st.spinner("Đang xử lý..."):
+                    ipa_text = get_ipa(text)
+                    st.markdown("**IPA:**")
+                    st.code(ipa_text or "(không có)",wrap_lines =True)
 
+                    try:
+                        audio_bytes = tts_gtts_bytes(text, lang=lang, slow=slow)
+                        st.success("Đã tạo audio (gTTS).")
+                        st.audio(audio_bytes, format="audio/mp3")
+                        fname = f"{sanitize_filename(base_name)}.mp3"
+                        st.download_button("⬇️ Tải MP3", data=audio_bytes, file_name=fname, mime="audio/mpeg")
+                    except Exception as e:
+                        st.error(f"Lỗi gTTS: {e}")
 # -----------------------------
 # Batch mode
 # -----------------------------
