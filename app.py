@@ -70,15 +70,15 @@ with tab_single:
     if sourece:
         lstData = sourece.strip(".").split(".") if sourece.strip(".").find(".") == -1 else [sourece]
         lstData = [x.strip() for x in lstData if x.strip()]
-        
+        st.write(f"**Tổng số câu:** {len(lstData)}")
         cola,colb = st.columns(2)
         with cola:
             if st.button("← Câu trước",use_container_width=True,type="primary"):
-                if st.session_state.count>1:
+                if st.session_state.count>0:
                     st.session_state.count-=1
         with colb:
             if st.button("Câu sau →",use_container_width=True,type="primary"):
-                if st.session_state.count<len(lstData):
+                if st.session_state.count<len(lstData)-1:
                     st.session_state.count+=1
 
         text = st.text_area(f"Câu {st.session_state.count+1}", height=50, value=lstData[st.session_state.count] if lstData else "", placeholder="Nhập câu tiếng Anh ở đây...")
