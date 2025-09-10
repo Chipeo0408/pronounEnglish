@@ -61,11 +61,15 @@ def sanitize_filename(s: str, maxlen=80) -> str:
 # -----------------------------
 # Single mode
 # -----------------------------
+intr="""
+This app helps me convert English text into IPA, and it also reads the text aloud using Google Text-to-Speech.
+You can upload a CSV file to get many sentences processed at once, and the app lets me download both the IPA results and MP3 files.
+It is very useful for learning English pronunciation and practice."""
 with tab_single:
     # Đặt giá trị mặc định trước
     if "count" not in st.session_state:
         st.session_state.count = 0
-    sourece =  st.text_area("Nguồn:", height=210, placeholder="Overthinking can hurt you.")
+    sourece =  st.text_area("Nguồn:", height=210, placeholder=intr)
     lstData = []
     if sourece:
         lstData = sourece.split(".") if sourece.find(".") > -1 else [sourece]
