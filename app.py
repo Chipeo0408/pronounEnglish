@@ -69,7 +69,7 @@ with tab_single:
     lstData = []
     if sourece:
         lstData = sourece.split(".") if sourece.find(".") == -1 else [sourece]
-        lstData = [x.strip() for x in lstData if x.strip()]
+        lstData = [x.strip() for x in lstData if x.strip() if x != ""]
         
         cola,colb = st.columns(2)
         with cola:
