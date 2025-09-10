@@ -68,7 +68,8 @@ with tab_single:
     sourece =  st.text_area("Nguồn:", height=210, placeholder="Overthinking can hurt you.")
     lstData = []
     if sourece:
-        lstData = sourece.split(".")
+        lstData = sourece.split(".") if sourece.find(".") == -1 else [sourece]
+        lstData = [x.strip() for x in lstData if x.strip()]
         
         cola,colb = st.columns(2)
         with cola:
