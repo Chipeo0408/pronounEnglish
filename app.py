@@ -102,7 +102,6 @@ with tab_single:
 
                     try:
                         audio_bytes = tts_gtts_bytes(text, lang=lang, slow=slow)
-                        st.success("Đã tạo audio (gTTS).")
                         st.audio(audio_bytes, format="audio/mp3")
                         fname = f"{sanitize_filename(base_name)}.mp3"
                         st.download_button("⬇️ Tải MP3", data=audio_bytes, file_name=fname, mime="audio/mpeg")
