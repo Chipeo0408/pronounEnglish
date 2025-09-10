@@ -92,7 +92,7 @@ with tab_single:
             with col2:
                 slow = st.checkbox("Đọc chậm (gTTS)")
             with col3:
-                base_name = st.text_input("Tên file MP3", value="speech")
+                base_name = st.text_input("Tên file MP3", value=f"audio_{st.session_state.count+1}", help="Không cần .mp3")
 
         if text:
             if not text.strip():
