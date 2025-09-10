@@ -78,7 +78,7 @@ with tab_single:
             with st.spinner("Đang xử lý..."):
                 ipa_text = get_ipa(text)
                 st.markdown("**IPA:**")
-                st.code(ipa_text or "(không có)")
+                st.code(ipa_text or "(không có)",wrap_lines =True)
 
                 try:
                     audio_bytes = tts_gtts_bytes(text, lang=lang, slow=slow)
