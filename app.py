@@ -19,12 +19,12 @@ except Exception:
 
 
 st.set_page_config(page_title="IPA + TTS", page_icon="🔤", layout="centered")
-st.title("🔤 English IPA + 🗣️ Text-to-Speech (Streamlit)")
+st.title("🔤 English IPA + 🗣️ Text-to-Speech")
 
 with st.expander("ℹ️ Hướng dẫn nhanh", expanded=False):
     st.markdown(
         """
-- Nhập câu tiếng Anh → bấm **Tạo IPA & Audio** → nghe trực tiếp & tải MP3.
+- Nhập đoạn văn tiếng Anh vào Nguồn → Sẽ tách ra từng câu → có thể nghe trực tiếp & tải MP3 từng câu.
 - Tab **Batch CSV**: tải file CSV có cột `text` → nhận lại CSV + gói MP3 (ZIP).
 - `gTTS` cần Internet; `eng_to_ipa` chuyển IPA cho tiếng Anh (xấp xỉ với câu dài).
         """
